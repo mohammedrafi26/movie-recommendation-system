@@ -9,7 +9,7 @@ movies = pd.read_csv("movies.csv", low_memory=False)
 
 
 # Keep only useful columns
-movies = movies[['title', 'overview', 'release_date']]
+movies = movies[['title', 'overview', 'genres']]
 movies['overview'] = movies['overview'].fillna('')
 
 # Extract year from release_date
@@ -78,6 +78,7 @@ if st.button("Recommend"):
 
     
         
+
 
 
 
