@@ -5,10 +5,8 @@ import requests
 import streamlit as st
 
 # =============== Load Dataset ===============
-movies = pd.read_csv(
-    r"C:\Users\MOHAMMED RAFI\OneDrive\ドキュメント\movies.csv",
-    low_memory=False
-)
+    movies = pd.read_csv("movies.csv", low_memory=False)
+
 
 # Keep only useful columns
 movies = movies[['title', 'overview', 'release_date']]
@@ -80,5 +78,6 @@ if st.button("Recommend"):
 
     
         
+
 
 
