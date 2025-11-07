@@ -6,7 +6,7 @@ import streamlit as st
 
 # =============== Load Dataset ===============
 movies = pd.read_csv(
-    r"C:\Users\MOHAMMED RAFI\Downloads\archive (1)\movies_metadata.csv",
+    r"C:\Users\MOHAMMED RAFI\OneDrive\ドキュメント\movies.csv"
     low_memory=False
 )
 
@@ -80,3 +80,4 @@ if st.button("Recommend"):
 
     
         
+
