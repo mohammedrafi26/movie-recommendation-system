@@ -7,7 +7,7 @@ import streamlit as st
 # =============== Load Dataset ===============
 movies = pd.read_csv("movies.csv", low_memory=False)
 
-
+st.write("Columns in your CSV:", movies.columns.tolist())
 # Keep only useful columns
 movies = movies[['title', 'overview', 'genres']]
 movies['overview'] = movies['overview'].fillna('')
@@ -78,6 +78,7 @@ if st.button("Recommend"):
 
     
         
+
 
 
 
