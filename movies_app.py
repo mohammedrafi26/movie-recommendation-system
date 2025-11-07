@@ -5,7 +5,7 @@ import requests
 import streamlit as st
 
 # =============== Load Dataset ===============
-    movies = pd.read_csv("movies.csv", low_memory=False)
+movies = pd.read_csv("movies.csv", low_memory=False)
 
 
 # Keep only useful columns
@@ -78,6 +78,7 @@ if st.button("Recommend"):
 
     
         
+
 
 
 
