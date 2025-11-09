@@ -40,7 +40,7 @@ def recommend(movie_title, n=5):
     return recommended_movies
 
 # =============== Fetch Poster from TMDB API ===============
-def fetch_poster(movie_title):
+def fetch_poster(title):
     API_KEY = "4cf08ed379ac1a8b6ca6432aac08db10"
     try:
         url = f"https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={movie_title}"
@@ -80,6 +80,7 @@ if st.button("Recommend"):
 
     
         
+
 
 
 
