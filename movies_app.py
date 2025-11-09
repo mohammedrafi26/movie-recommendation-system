@@ -5,11 +5,14 @@ import requests
 import streamlit as st
 
 # =============== Load Dataset ===============
+st.write("Columns in your CSV:", movies.columns.tolist())
+
 movies = pd.read_csv("movies.csv", low_memory=False)
 
 # Keep only useful columns
-movies = movies[['title', 'overview', 'release_date']]
-movies['overview'] = movies['overview'].fillna('')
+movies = movies[['movieId', 'title', 'genres']]
+movies['overview'] = movies['genres']  # use genres as text for similarity
+movies['release_date'] = None
 
 # Extract year from release_date
 movies['release_date'] = pd.to_datetime(movies['release_date'], errors='coerce')
@@ -77,4 +80,5 @@ if st.button("Recommend"):
 
     
         
+
 
