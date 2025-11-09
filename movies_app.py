@@ -42,7 +42,7 @@ def recommend(movie_title, n=5):
 # =============== Fetch Poster from TMDB API ===============
 import requests
 API_KEY = "ea6489e0f7fb8a885e72fdec213d85b6"
-   def fetch_poster(title, year=None):
+def fetch_poster(title, year=None):
     try:
         # Search for the movie by title (and optionally year)
         query = f"https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={title}"
@@ -84,6 +84,7 @@ if st.button("Recommend"):
 
     
         
+
 
 
 
