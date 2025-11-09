@@ -72,7 +72,7 @@ if st.button("Recommend"):
         st.subheader("Recommended Movies:")
         cols = st.columns(5)
         for idx, (title, year) in enumerate(recommendations):
-            poster = fetch_poster(title, year)
+            poster = fetch_poster(title)
             with cols[idx % 5]:
                 st.image(poster, caption=f"{title} ({year})", width=150)
     else:
@@ -80,6 +80,7 @@ if st.button("Recommend"):
 
     
         
+
 
 
 
