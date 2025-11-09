@@ -5,10 +5,9 @@ import requests
 import streamlit as st
 
 # =============== Load Dataset ===============
-st.write("Columns in your CSV:", movies.columns.tolist())
-
 movies = pd.read_csv("movies.csv", low_memory=False)
 
+st.write("Columns in your CSV:", movies.columns.tolist())
 # Keep only useful columns
 movies = movies[['movieId', 'title', 'genres']]
 movies['overview'] = movies['genres']  # use genres as text for similarity
@@ -80,5 +79,6 @@ if st.button("Recommend"):
 
     
         
+
 
 
