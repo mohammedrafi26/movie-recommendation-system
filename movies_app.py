@@ -78,8 +78,10 @@ if st.button("Recommend"):
     else:
         st.error("Movie not found in database. Try another title.")
 
+
     
         
+
 
 
 
