@@ -40,9 +40,8 @@ def recommend(movie_title, n=5):
     return recommended_movies
 
 # =============== Fetch Poster from TMDB API ===============
-API_KEY = "4cf08ed379ac1a8b6ca6432aac08db10"
-
-def fetch_poster(movie_title, year=None):
+def fetch_poster(movie_title):
+    API_KEY = "4cf08ed379ac1a8b6ca6432aac08db10"
     try:
         url = f"https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={movie_title}"
         response = requests.get(url, timeout=10)
@@ -51,13 +50,15 @@ def fetch_poster(movie_title, year=None):
 
         if data.get("results"):
             for movie in data["results"]:
-                if movie.get("poster_path"):
+                if movie.get("poster_path"):  # ✅ pick first valid poster
                     return f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
-        # fallback: placeholder if no poster
-        return "https://via.placeholder.com/200x300?text=No+Poster"
+
+        # fallback
+        return "https://via.placeholder.com/200x300?text=No+Poster+Found"
     except Exception as e:
         print("Poster fetch error:", e)
         return "https://via.placeholder.com/200x300?text=Error"
+
 
 # =============== Streamlit App ===============
 st.title("🎬 Movie Recommendation System")
@@ -79,6 +80,7 @@ if st.button("Recommend"):
 
     
         
+
 
 
 
