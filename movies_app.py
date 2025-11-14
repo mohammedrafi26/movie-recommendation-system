@@ -5,13 +5,14 @@ import requests
 import streamlit as st
 
 # =============== Load Dataset ===============
-movies = pd.read_csv("movies.csv", low_memory=False)
+movies = pd.read_csv(
+    r"C:\Users\MOHAMMED RAFI\Downloads\archive (1)\movies_metadata.csv",
+    low_memory=False
+)
 
-st.write("Columns in your CSV:", movies.columns.tolist())
 # Keep only useful columns
-movies = movies[['movieId', 'title', 'genres']]
-movies['overview'] = movies['genres']  # use genres as text for similarity
-movies['release_date'] = None
+movies = movies[['title', 'overview', 'release_date']]
+movies['overview'] = movies['overview'].fillna('')
 
 # Extract year from release_date
 movies['release_date'] = pd.to_datetime(movies['release_date'], errors='coerce')
@@ -40,28 +41,24 @@ def recommend(movie_title, n=5):
     return recommended_movies
 
 # =============== Fetch Poster from TMDB API ===============
-import requests
-API_KEY = "ea6489e0f7fb8a885e72fdec213d85b6"
-def fetch_poster(title, year=None):
+API_KEY = "4cf08ed379ac1a8b6ca6432aac08db10"
+
+def fetch_poster(movie_title, year=None):
     try:
-        # Search for the movie by title (and optionally year)
-        query = f"https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={title}"
-        if year:
-            query += f"&year={year}"
-        
-        response = requests.get(query)
+        url = f"https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={movie_title}"
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
         data = response.json()
-        
-        if data["results"]:
-            poster_path = data["results"][0]["poster_path"]
-            if poster_path:
-                return "https://image.tmdb.org/t/p/w500" + poster_path
-        return "https://via.placeholder.com/500x750?text=No+Image"
-    
+
+        if data.get("results"):
+            for movie in data["results"]:
+                if movie.get("poster_path"):
+                    return f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
+        # fallback: placeholder if no poster
+        return "https://via.placeholder.com/200x300?text=No+Poster"
     except Exception as e:
-        print(f"Error fetching poster for {title}: {e}")
-        return "https://via.placeholder.com/500x750?text=No+Image"
-       
+        print("Poster fetch error:", e)
+        return "https://via.placeholder.com/200x300?text=Error"
 
 # =============== Streamlit App ===============
 st.title("🎬 Movie Recommendation System")
@@ -75,23 +72,11 @@ if st.button("Recommend"):
         st.subheader("Recommended Movies:")
         cols = st.columns(5)
         for idx, (title, year) in enumerate(recommendations):
-            poster = fetch_poster(title)
+            poster = fetch_poster(title, year)
             with cols[idx % 5]:
                 st.image(poster, caption=f"{title} ({year})", width=150)
     else:
         st.error("Movie not found in database. Try another title.")
 
-
     
         
-
-
-
-
-
-
-
-
-
-
-
