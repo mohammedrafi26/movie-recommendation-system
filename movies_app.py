@@ -11,7 +11,7 @@ st.write("Get movie recommendations with posters — powered by TMDB!")
 
 # ================== Load Dataset ==================
 try:
-    movies = pd.read_csv("movies_metadata.csv", low_memory=False)
+   movies = pd.read_csv("movies.csv", low_memory=False)
     st.success("✅ Dataset loaded successfully!")
 except Exception as e:
     st.error(f"Error loading dataset: {e}")
@@ -96,4 +96,5 @@ if st.button("Recommend"):
 
     
         
+
 
